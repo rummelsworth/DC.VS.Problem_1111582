@@ -6,7 +6,13 @@ namespace A
     {
         public string GetHelloB()
         {
+#if NET48
             var executableB = typeof(B.Program).Assembly.Location;
+#elif NETCOREAPP3_1
+            var libraryB = typeof(B.Program).Assembly.Location;
+            var executableB = System.IO.Path.ChangeExtension(libraryB, "exe");
+#endif
+
             var info = new ProcessStartInfo(executableB)
             {
                 RedirectStandardOutput = true,
