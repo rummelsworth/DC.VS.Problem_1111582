@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace A
 {
@@ -13,10 +12,13 @@ namespace A
                 RedirectStandardOutput = true,
                 UseShellExecute = false,
             };
-            using var p = Process.Start(info);
-            var hello = p.StandardOutput.ReadToEnd();
-            p.WaitForExit();
-            return hello;
+
+            using (var p = Process.Start(info))
+            {
+                var hello = p.StandardOutput.ReadToEnd();
+                p.WaitForExit();
+                return hello;
+            }
         }
     }
 }
